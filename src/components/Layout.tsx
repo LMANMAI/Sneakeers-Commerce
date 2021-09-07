@@ -1,7 +1,16 @@
-import React, { Component } from "react";
-
+import React from "react";
+import { Container } from "../styles";
+import { Header, Footer } from "../components";
 const Layout: React.FC = ({ children }) => {
-  return <div>{children}</div>;
+  return (
+    <>
+      <Container>
+        <Header />
+        {children}
+        <Footer />
+      </Container>
+    </>
+  );
 };
 
 export default Layout;

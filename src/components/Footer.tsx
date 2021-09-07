@@ -1,7 +1,11 @@
 import React from "react";
-
+import { FooterContainer } from "../styles";
 const Footer: React.FC = () => {
-  return <div>DESDE EL FOOTER</div>;
+  return (
+    <FooterContainer>
+      <p>Made with {"</>"} by Lucas Maidana</p>
+    </FooterContainer>
+  );
 };
 
 export default Footer;

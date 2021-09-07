@@ -1,20 +1,17 @@
 import React from "react";
-import { Layout, Footer, Header } from "./components";
+import { Layout, Cart } from "./components";
 import { Redirect, Route, Switch } from "react-router";
-import { LandingPage, CartPage } from "./pages";
+import { LandingPage } from "./pages";
+import "./styles/reset.css";
 const App: React.FC = () => {
   return (
-    <>
-      <Layout>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <Route exact path="/Checkout" component={CartPage} />
-          <Redirect to="/" />
-        </Switch>
-        <Footer />
-      </Layout>
-    </>
+    <Layout>
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/Checkout" component={Cart} />
+        <Redirect to="/" />
+      </Switch>
+    </Layout>
   );
 };
 
