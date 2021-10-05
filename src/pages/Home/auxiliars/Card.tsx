@@ -8,16 +8,26 @@ import {
   Series,
   Price,
 } from "../../../styles";
-const Card: React.FC = () => {
+interface ISneaker {
+  _id: String;
+  name: string;
+  price: Number;
+  relaseYear: String;
+  imageURL: string;
+  brand: String;
+  createdAt: Date;
+}
+const Card = (props: { sneaker: ISneaker }) => {
+  console.log(props.sneaker);
   return (
     <MainCard>
       <TopContainer>
-        <img src={Image} alt={Image} />
+        <img src={props.sneaker.imageURL} alt={props.sneaker.name} />
       </TopContainer>
       <BotContainer>
-        <Name>Nombre</Name>
-        <Series>series</Series>
-        <Price>$100</Price>
+        <Name>{props.sneaker.name}</Name>
+        <Series>{props.sneaker.brand}</Series>
+        <Price>${props.sneaker.price}</Price>
       </BotContainer>
     </MainCard>
   );

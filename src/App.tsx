@@ -3,7 +3,7 @@ import { Layout, Cart } from "./components";
 import { Redirect, Route, Switch } from "react-router";
 import { LandingPage } from "./pages";
 import "./styles/reset.css";
-const App: React.FC = () => {
+const App = (): JSX.Element => {
   return (
     <Layout>
       <Switch>

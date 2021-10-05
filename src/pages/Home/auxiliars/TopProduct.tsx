@@ -10,11 +10,14 @@ const TopProduct: React.FC = () => {
           <p>Brand</p>
         </Banner>
         <Banner>
-          <img src={Img} alt="" />
+          <img
+            src="https://cdn.kickscrew.com/media/btn_banner_yeezy.jpg"
+            alt=""
+          />
           <p>Brand</p>
         </Banner>
         <Banner>
-          <img src={Img} alt="" />
+          <img src="https://cdn.kickscrew.com/media/btn_banner_aj.jpg" alt="" />
           <p>Brand</p>
         </Banner>
       </BannerWrapper>
