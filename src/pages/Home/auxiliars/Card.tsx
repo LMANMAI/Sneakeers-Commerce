@@ -1,5 +1,5 @@
-import React from "react";
-import Image from "../../../assets/gy3438_ta.webp";
+import { useDispatch } from "react-redux";
+import { setSneakerCart } from "../../../features/sneakersSlice";
 import {
   MainCard,
   TopContainer,
@@ -8,27 +8,32 @@ import {
   Series,
   Price,
 } from "../../../styles";
-interface ISneaker {
-  _id: String;
-  name: string;
-  price: Number;
-  relaseYear: String;
-  imageURL: string;
-  brand: String;
-  createdAt: Date;
-}
+import { ISneaker } from "../../../interfaces";
 const Card = (props: { sneaker: ISneaker }) => {
-  console.log(props.sneaker);
+  const dispatch = useDispatch();
+  const handleSneakerCart = (sneaker: ISneaker) => {
+    dispatch(setSneakerCart(sneaker));
+  };
   return (
     <MainCard>
-      <TopContainer>
-        <img src={props.sneaker.imageURL} alt={props.sneaker.name} />
-      </TopContainer>
-      <BotContainer>
-        <Name>{props.sneaker.name}</Name>
-        <Series>{props.sneaker.brand}</Series>
-        <Price>${props.sneaker.price}</Price>
-      </BotContainer>
+      <div>
+        <TopContainer>
+          <img src={props.sneaker.imageURL} alt={props.sneaker.name} />
+        </TopContainer>
+        <BotContainer>
+          <Name>{props.sneaker.name}</Name>
+          <Series>{props.sneaker.brand}</Series>
+          <Price>${props.sneaker.price}</Price>
+        </BotContainer>
+        <div className="button_container">
+          <button
+            className="button_cart"
+            onClick={() => handleSneakerCart(props.sneaker)}
+          >
+            Agregar al carrito
+          </button>
+        </div>
+      </div>
     </MainCard>
   );
 };

@@ -1,3 +1,4 @@
+//importo las interfaces
 import styled from "styled-components";
 import Slider from "react-slick";
 
@@ -6,7 +7,7 @@ export const Container = styled.main`
 `;
 export const LandingContainer = styled.div`
   width: 90%;
-  margin: 0px auto;
+  margin: 60px auto;
 `;
 // Header
 export const HeaderContainer = styled.header`
@@ -15,9 +16,24 @@ export const HeaderContainer = styled.header`
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+  background: white;
 `;
 export const LinkContainer = styled.div`
   width: 65px;
+  button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    svg {
+      color: #7a7a7a;
+      font-size: 25px;
+      align-self: center;
+    }
+  }
   img {
     width: 100%;
     max-width: 50px;
@@ -25,11 +41,6 @@ export const LinkContainer = styled.div`
   div {
     display: flex;
     align-items: center;
-    svg {
-      color: #7a7a7a;
-      font-size: 25px;
-      align-self: center;
-    }
   }
 `;
 
@@ -122,9 +133,25 @@ export const CardContainer = styled.section`
 `;
 export const MainCard = styled.div`
   transition: all 150ms ease-in-out;
+
+  .button_container {
+    width: 100%;
+    display: flex;
+  }
+  .button_cart {
+    justify-content: center;
+    margin: 10px auto;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    visibility: hidden;
+  }
   &:hover {
     cursor: pointer;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    .button_cart {
+      visibility: visible;
+    }
   }
 `;
 export const TopContainer = styled.div`
@@ -175,6 +202,7 @@ export const Banner = styled.div`
     width: 100%;
   }
 `;
+
 //Footer
 export const FooterContainer = styled.footer`
   height: 25px;

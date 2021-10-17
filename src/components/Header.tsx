@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   HeaderContainer,
@@ -8,7 +8,10 @@ import {
 } from "../styles";
 import { ImCart, ImSearch } from "react-icons/im";
 import SneakerLogo from "../assets/sneakers.png";
+import { Cart } from ".";
 const Header: React.FC = () => {
+  const [position, setPosition] = useState(false);
+  console.log(position);
   return (
     <HeaderContainer>
       <LinkContainer>
@@ -29,11 +32,10 @@ const Header: React.FC = () => {
         />
       </InputContainer>
       <LinkContainer>
-        <Link to="/Checkout">
-          <div>
-            <ImCart />
-          </div>
-        </Link>
+        <button onClick={() => setPosition(!position)}>
+          <ImCart />
+        </button>
+        <Cart position={position} fn={setPosition} />
       </LinkContainer>
     </HeaderContainer>
   );
