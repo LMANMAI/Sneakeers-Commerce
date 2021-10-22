@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { setSneakerCart } from "../../../features/sneakersSlice";
+import { setSneakerCart, setTotalCart } from "../../../features/sneakersSlice";
 import {
   MainCard,
   TopContainer,
@@ -13,6 +13,7 @@ const Card = (props: { sneaker: ISneaker }) => {
   const dispatch = useDispatch();
   const handleSneakerCart = (sneaker: ISneaker) => {
     dispatch(setSneakerCart(sneaker));
+    dispatch(setTotalCart(sneaker.price));
   };
   return (
     <MainCard>

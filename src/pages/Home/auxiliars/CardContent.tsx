@@ -4,7 +4,7 @@ import { CardWrapperMain, CardContainer } from "../../../styles";
 interface ISneaker {
   _id: String;
   name: string;
-  price: Number;
+  price: number;
   relaseYear: String;
   imageURL: string;
   brand: String;

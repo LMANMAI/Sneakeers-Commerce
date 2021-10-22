@@ -4,7 +4,7 @@ export interface IShopProps {
 export interface ISneaker {
   _id: String;
   name: string;
-  price: Number;
+  price: number;
   relaseYear: String;
   imageURL: string;
   brand: String;
@@ -13,4 +13,6 @@ export interface ISneaker {
 export interface ISneakerState {
   sneakers: ISneaker[];
   value: number;
+  sneaker_id: string;
+  total: number;
 }

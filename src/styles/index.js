@@ -126,9 +126,8 @@ export const CardWrapperMain = styled.main`
 `;
 export const CardContainer = styled.section`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 10px;
-  padding: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+  gap: 15px;
   box-sizing: border-box;
 `;
 export const MainCard = styled.div`
@@ -182,7 +181,7 @@ export const Price = styled.span`
   font-weight: 400;
 `;
 //Baner section
-export const BannerContainer = styled.section``;
+export const BannerContainer = styled.main``;
 export const BannerWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -202,7 +201,91 @@ export const Banner = styled.div`
     width: 100%;
   }
 `;
-
+//Cart
+export const SneakerCardCart = styled.div`
+  border-radius: 15px;
+  width: 80%;
+  display: flex;
+  overflow: hidden;
+  background-color: white;
+  margin: 5px 0;
+  p {
+    font-size: 0.625;
+  }
+  img {
+    padding: 5px;
+  }
+`;
+//CART PAGE
+export const CartPageContainer = styled.div`
+  margin: 1.125rem;
+  padding: 2rem 1.225rem;
+  display: flex;
+  flex-direction: column;
+  .total_shop {
+    width: 80%;
+    margin: 0 auto;
+    padding: 2 1.225rem;
+    padding: 40px 50px;
+  }
+`;
+export const CartBoxItemsContainer = styled.div`
+  background-color: #fbf9f9;
+  width: 100%;
+  height: 70vh;
+  padding: 0.725rem 1.125rem;
+  @media (min-width: 768px) {
+    width: 80%;
+    margin: 2rem auto;
+    min-height: 55vh;
+    overflow-y: auto;
+  }
+  .message_container {
+    margin: 96px auto;
+    max-width: 450px;
+    text-align: center;
+    h3 {
+      margin-bottom: 0;
+      font-size: 32px;
+      color: #333;
+    }
+    p {
+      color: #999;
+      font-size: 18px;
+    }
+  }
+`;
+export const CartButton = styled.button`
+  padding: 13px 32px 12px;
+  background-color: #fa6b34;
+  font-size: 17px;
+  width: 90%;
+  margin: 10px auto;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+  color: white;
+  @media (min-width: 768px) {
+    min-width: 142px;
+    width: 200px;
+    align-self: flex-end;
+    margin: 0.725rem 1.725rem;
+  }
+`;
+export const CartPageShop = styled.div`
+  padding: 44px 0 48px;
+  border-bottom: 1px solid #e6e6e6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+export const ImgShopContainer = styled.div`
+  width: 85px;
+  img {
+    width: 100%;
+  }
+`;
 //Footer
 export const FooterContainer = styled.footer`
   height: 25px;

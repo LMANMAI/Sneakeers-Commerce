@@ -1,8 +1,8 @@
 import { Provider } from "react-redux";
 import { store } from "./app/store";
-import { Layout, Cart } from "./components";
+import { Layout } from "./components";
 import { Redirect, Route, Switch } from "react-router";
-import { LandingPage } from "./pages";
+import { LandingPage, CartPage } from "./pages";
 import "./styles/reset.css";
 const App = (): JSX.Element => {
   return (
@@ -10,7 +10,7 @@ const App = (): JSX.Element => {
       <Layout>
         <Switch>
           <Route exact path="/" component={LandingPage} />
-          <Route exact path="/Checkout" component={Cart} />
+          <Route exact path="/Checkout" component={CartPage} />
           <Redirect to="/" />
         </Switch>
       </Layout>
