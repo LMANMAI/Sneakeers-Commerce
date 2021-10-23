@@ -66,6 +66,16 @@ export const InputSearch = styled.input`
     }
   }
 `;
+export const CartSticky = styled.span`
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  color: white;
+  font-size: 10px;
+  line-height: 15px;
+  background-color: red;
+  border-radius: 50%;
+`;
 //slider
 export const SliderContainer = styled.div`
   width: 90vw;

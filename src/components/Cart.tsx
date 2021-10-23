@@ -1,7 +1,10 @@
-import { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { selectSneakers, removeSneakerCart } from "../features/sneakersSlice";
+import {
+  selectSneakers,
+  removeSneakerCart,
+  setDiscartProduct,
+} from "../features/sneakersSlice";
 import { IShopProps } from "../interfaces";
 import { SneakerCardCart } from "../styles";
 import { Link } from "react-router-dom";
@@ -15,9 +18,16 @@ const ShopCartContainer = styled.div<IShopProps>`
   top: 0px;
   z-index: 99;
   background-color: #eee;
-  display: flex;
-  flex-direction: column;
+
   padding: 1.125rem;
+
+  .wraper {
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    overflow-y: auto;
+  }
   .link_button {
     text-decoration: none;
     padding: 8px;
@@ -45,29 +55,32 @@ const ShopCartContainer = styled.div<IShopProps>`
 const Cart = (props: { position: Boolean; fn: Function }) => {
   const sneakers = useSelector(selectSneakers);
   const dispatch = useDispatch();
-  useEffect(() => {
-    console.log("Los sneakers son: ", sneakers);
-  }, [sneakers]);
+  const handleFuncitons = (id: String) => {
+    dispatch(removeSneakerCart(id));
+    dispatch(setDiscartProduct());
+  };
   return (
     <ShopCartContainer position={props.position}>
-      {sneakers.length > 0 ? (
-        sneakers.map((sneaker) => (
-          <>
-            <div className="sneaker_cart_container">
-              <SneakerCardCart>
-                <img src={sneaker.imageURL} alt={sneaker.name} />
-                <p>{sneaker.name}</p>
-              </SneakerCardCart>
-              <button onClick={() => dispatch(removeSneakerCart(sneaker._id))}>
-                <GoTrashcan />
-              </button>
-            </div>
-            <hr />
-          </>
-        ))
-      ) : (
-        <p>Todavia no hay productos en el carrito</p>
-      )}
+      <div className="wraper">
+        {sneakers.length > 0 ? (
+          sneakers.map((sneaker) => (
+            <>
+              <div className="sneaker_cart_container">
+                <SneakerCardCart>
+                  <img src={sneaker.imageURL} alt={sneaker.name} />
+                  <p>{sneaker.name}</p>
+                </SneakerCardCart>
+                <button onClick={() => handleFuncitons(sneaker._id)}>
+                  <GoTrashcan />
+                </button>
+              </div>
+              <hr />
+            </>
+          ))
+        ) : (
+          <p>Todavia no hay productos en el carrito</p>
+        )}
+      </div>
       <Link className="link_button" to="/Checkout" onClick={() => props.fn()}>
         Terminar compra
       </Link>

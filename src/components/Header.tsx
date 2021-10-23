@@ -5,13 +5,16 @@ import {
   LinkContainer,
   InputContainer,
   InputSearch,
+  CartSticky,
 } from "../styles";
 import { ImCart, ImSearch } from "react-icons/im";
 import SneakerLogo from "../assets/sneakers.png";
 import { Cart } from ".";
+import { useSelector } from "react-redux";
+import { selectCountProduct } from "../features/sneakersSlice";
 const Header: React.FC = () => {
   const [position, setPosition] = useState(false);
-  console.log(position);
+  const count = useSelector(selectCountProduct);
   return (
     <HeaderContainer>
       <LinkContainer>
@@ -34,6 +37,7 @@ const Header: React.FC = () => {
       <LinkContainer>
         <button onClick={() => setPosition(!position)}>
           <ImCart />
+          {count !== 0 ? <CartSticky>{count}</CartSticky> : null}
         </button>
         <Cart position={position} fn={setPosition} />
       </LinkContainer>

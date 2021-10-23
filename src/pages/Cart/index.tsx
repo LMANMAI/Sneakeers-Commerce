@@ -27,7 +27,7 @@ const CartPage: React.FC = () => {
                   <img src={sneaker.imageURL} alt={sneaker.name} />
                 </ImgShopContainer>
                 <p>{sneaker.name}</p>
-                <span>{sneaker.price}</span>
+                <span>${sneaker.price}</span>
               </CartPageShop>
             ))
           )}
@@ -35,7 +35,7 @@ const CartPage: React.FC = () => {
         {totalCart && (
           <CartPageShop className="total_shop">
             <span>Total: </span>
-            <p>{totalCart}</p>
+            <p>${totalCart}</p>
           </CartPageShop>
         )}
         <CartButton type="button" disabled>

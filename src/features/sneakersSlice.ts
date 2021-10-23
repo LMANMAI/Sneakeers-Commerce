@@ -7,6 +7,7 @@ const initialState: ISneakerState = {
   value: 0,
   sneaker_id: "",
   total: 0,
+  cartCountProduct: 0,
 };
 
 export const sneakerSlice = createSlice({
@@ -24,12 +25,26 @@ export const sneakerSlice = createSlice({
     setTotalCart: (state, action: PayloadAction<number>) => {
       state.total += action.payload;
     },
+    setCountCartProduct: (state) => {
+      state.cartCountProduct += 1;
+    },
+    setDiscartProduct: (state) => {
+      state.cartCountProduct -= 1;
+    },
   },
 });
 
-export const { setSneakerCart, removeSneakerCart, setTotalCart } =
-  sneakerSlice.actions;
+export const {
+  setSneakerCart,
+  removeSneakerCart,
+  setTotalCart,
+  setCountCartProduct,
+  setDiscartProduct,
+} = sneakerSlice.actions;
 // Other code such as selectors can use the imported `RootState` type
 export const selectSneakers = (state: RootState) => state.sneaker.sneakers;
 export const selectTotalCart = (state: RootState) => state.sneaker.total;
+export const selectCountProduct = (state: RootState) =>
+  state.sneaker.cartCountProduct;
+
 export default sneakerSlice.reducer;

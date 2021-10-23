@@ -15,4 +15,5 @@ export interface ISneakerState {
   value: number;
   sneaker_id: string;
   total: number;
+  cartCountProduct: number;
 }
