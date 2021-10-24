@@ -2,7 +2,7 @@ export interface IShopProps {
   position: Boolean;
 }
 export interface ISneaker {
-  _id: string;
+  _id: String;
   name: string;
   price: number;
   relaseYear: String;
