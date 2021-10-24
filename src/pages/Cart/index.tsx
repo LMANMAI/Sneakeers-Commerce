@@ -7,9 +7,9 @@ import {
   ImgShopContainer,
 } from "../../styles";
 import { useSelector } from "react-redux";
-import { selectSneakers, selectTotalCart } from "../../features/sneakersSlice";
+import { selectBasket, selectTotalCart } from "../../features/sneakersSlice";
 const CartPage: React.FC = () => {
-  const sneakers = useSelector(selectSneakers);
+  const sneakers = useSelector(selectBasket);
   const totalCart = useSelector(selectTotalCart);
   return (
     <main>

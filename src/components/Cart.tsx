@@ -2,10 +2,12 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectSneakers,
-  removeSneakerCart,
+  removeSneakerBasket,
   setDiscartProduct,
+  selectCountProduct,
+  selectBasket,
 } from "../features/sneakersSlice";
-import { IShopProps } from "../interfaces";
+import { IShopProps, ISneaker } from "../interfaces";
 import { SneakerCardCart } from "../styles";
 import { Link } from "react-router-dom";
 import { GoTrashcan } from "react-icons/go";
@@ -13,16 +15,15 @@ const ShopCartContainer = styled.div<IShopProps>`
   height: 100%;
   width: 65vw;
   position: fixed;
+  flex-direction: column;
+  justify-content: space-evenly;
   transition: all 450ms ease-in-out;
   right: ${(props) => (props.position ? "0px" : "-100vw")};
   top: 0px;
   z-index: 99;
   background-color: #eee;
-
   padding: 1.125rem;
-
   .wraper {
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
     height: 90%;
@@ -34,17 +35,15 @@ const ShopCartContainer = styled.div<IShopProps>`
     background-color: #fa6b34;
     color: whitesmoke;
     border-radius: 5px;
-    position: absolute;
-    bottom: 70px;
   }
   .sneaker_cart_container {
     background-color: white;
     border-radius: 5px;
     margin: 5px;
+    width: 90%;
   }
-  .button_close {
-    position: fixed;
-    bottom: 25px;
+  p {
+    text-align: center;
   }
   @media (min-width: 768px) {
     width: 35vw;
@@ -53,10 +52,11 @@ const ShopCartContainer = styled.div<IShopProps>`
 `;
 
 const Cart = (props: { position: Boolean; fn: Function }) => {
-  const sneakers = useSelector(selectSneakers);
+  const sneakers = useSelector(selectBasket);
+  const count = useSelector(selectCountProduct);
   const dispatch = useDispatch();
-  const handleFuncitons = (id: String) => {
-    dispatch(removeSneakerCart(id));
+  const handleFuncitons = (sneaker: ISneaker) => {
+    dispatch(removeSneakerBasket(sneaker));
     dispatch(setDiscartProduct());
   };
   return (
@@ -70,7 +70,7 @@ const Cart = (props: { position: Boolean; fn: Function }) => {
                   <img src={sneaker.imageURL} alt={sneaker.name} />
                   <p>{sneaker.name}</p>
                 </SneakerCardCart>
-                <button onClick={() => handleFuncitons(sneaker._id)}>
+                <button onClick={() => handleFuncitons(sneaker)}>
                   <GoTrashcan />
                 </button>
               </div>
@@ -81,9 +81,11 @@ const Cart = (props: { position: Boolean; fn: Function }) => {
           <p>Todavia no hay productos en el carrito</p>
         )}
       </div>
-      <Link className="link_button" to="/Checkout" onClick={() => props.fn()}>
-        Terminar compra
-      </Link>
+      {count !== 0 && (
+        <Link className="link_button" to="/Checkout" onClick={() => props.fn()}>
+          Terminar compra
+        </Link>
+      )}
       <button className="button_close" onClick={() => props.fn()}>
         Cerrar
       </button>

@@ -2,7 +2,7 @@ export interface IShopProps {
   position: Boolean;
 }
 export interface ISneaker {
-  _id: String;
+  _id: string;
   name: string;
   price: number;
   relaseYear: String;
@@ -12,6 +12,7 @@ export interface ISneaker {
 }
 export interface ISneakerState {
   sneakers: ISneaker[];
+  basket: ISneaker[];
   value: number;
   sneaker_id: string;
   total: number;

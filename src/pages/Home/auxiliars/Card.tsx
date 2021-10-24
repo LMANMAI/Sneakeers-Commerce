@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import {
-  setSneakerCart,
+  setBasket,
   setTotalCart,
   setCountCartProduct,
 } from "../../../features/sneakersSlice";
@@ -16,7 +16,7 @@ import { ISneaker } from "../../../interfaces";
 const Card = (props: { sneaker: ISneaker }) => {
   const dispatch = useDispatch();
   const handleSneakerCart = (sneaker: ISneaker) => {
-    dispatch(setSneakerCart(sneaker));
+    dispatch(setBasket(sneaker));
     dispatch(setTotalCart(sneaker.price));
     dispatch(setCountCartProduct());
   };
@@ -24,7 +24,11 @@ const Card = (props: { sneaker: ISneaker }) => {
     <MainCard>
       <div>
         <TopContainer>
-          <img src={props.sneaker.imageURL} alt={props.sneaker.name} />
+          <img
+            src={props.sneaker.imageURL}
+            alt={props.sneaker.name}
+            loading="lazy"
+          />
         </TopContainer>
         <BotContainer>
           <Name>{props.sneaker.name}</Name>
