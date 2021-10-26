@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "./";
 import { CardWrapperMain, CardContainer } from "../../../styles";
 import { ISneaker } from "../../../interfaces";
-import { useDispatch } from "react-redux";
-import { setSneakers } from "../../../features/sneakersSlice";
 const CardContent = (): JSX.Element => {
-  const dispatch = useDispatch();
-
   const [snekaersApi, setSneakersApi] = useState<ISneaker[]>([]);
   useEffect(() => {
     const requestApi = async () => {

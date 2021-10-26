@@ -1,9 +1,8 @@
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { store } from "./app/store";
 import { Layout } from "./components";
 import { Redirect, Route, Switch } from "react-router";
 import { LandingPage, CartPage } from "./pages";
-import { selectCountProduct } from "./features/sneakersSlice";
 import "./styles/reset.css";
 const App = (): JSX.Element => {
   return (

@@ -16,5 +16,18 @@ export interface ISneakerState {
   value: number;
   sneaker_id: string;
   total: number;
-  cartCountProduct: number;
+}
+export interface IUser {
+  firstName: string;
+  email: string;
+  id: string;
+  createdAt: any;
+}
+export interface IUserState {
+  user: IUser | null;
+  authenticated: boolean;
+  loading: boolean;
+  error: string;
+  needVerification: boolean;
+  success: string;
 }

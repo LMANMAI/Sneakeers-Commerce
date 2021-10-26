@@ -11,10 +11,19 @@ import { ImCart, ImSearch } from "react-icons/im";
 import SneakerLogo from "../assets/sneakers.png";
 import { Cart } from ".";
 import { useSelector } from "react-redux";
-import { selectCountProduct } from "../features/sneakersSlice";
+import { selectBasket } from "../features/sneakersSlice";
+import { provider, auth, signInWithPopup } from "../firebase";
+import { GoogleAuthProvider } from "firebase/auth";
 const Header: React.FC = () => {
   const [position, setPosition] = useState(false);
-  const count = useSelector(selectCountProduct);
+  const basket = useSelector(selectBasket);
+  const handleSingIn = () => {
+    signInWithPopup(auth, provider).then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
+      console.log(result.user);
+    });
+  };
   return (
     <HeaderContainer>
       <LinkContainer>
@@ -35,10 +44,24 @@ const Header: React.FC = () => {
         />
       </InputContainer>
       <LinkContainer>
-        <button onClick={() => setPosition(!position)}>
-          <ImCart />
-          {count !== 0 ? <CartSticky>{count}</CartSticky> : null}
-        </button>
+        <div>
+          <button
+            type="button"
+            className="login_button"
+            onClick={() => handleSingIn()}
+          >
+            Inicia sesion
+          </button>
+          <div>
+            <ImCart
+              onClick={() => setPosition(!position)}
+              className="button_cart"
+            />
+            {basket.length !== 0 ? (
+              <CartSticky>{basket.length}</CartSticky>
+            ) : null}
+          </div>
+        </div>
         <Cart position={position} fn={setPosition} />
       </LinkContainer>
     </HeaderContainer>

@@ -23,7 +23,7 @@ export const HeaderContainer = styled.header`
   background: white;
 `;
 export const LinkContainer = styled.div`
-  width: 65px;
+  width: 15%;
   button {
     border: none;
     background-color: transparent;
@@ -41,6 +41,18 @@ export const LinkContainer = styled.div`
   div {
     display: flex;
     align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .login_button.login_button {
+    width: 100%;
+    padding: 5px;
+  }
+  .button_cart {
+    width: 50px;
+    position: absolute;
+    cursor: pointer;
   }
 `;
 
@@ -67,7 +79,8 @@ export const InputSearch = styled.input`
   }
 `;
 export const CartSticky = styled.span`
-  position: absolute;
+  position: relative;
+  right: -15px;
   width: 15px;
   height: 15px;
   color: white;
@@ -75,6 +88,7 @@ export const CartSticky = styled.span`
   line-height: 15px;
   background-color: red;
   border-radius: 50%;
+  text-align: center;
 `;
 //slider
 export const SliderContainer = styled.div`

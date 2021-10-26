@@ -1,12 +1,6 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  selectSneakers,
-  removeSneakerBasket,
-  setDiscartProduct,
-  selectCountProduct,
-  selectBasket,
-} from "../features/sneakersSlice";
+import { removeSneakerBasket, selectBasket } from "../features/sneakersSlice";
 import { IShopProps, ISneaker } from "../interfaces";
 import { SneakerCardCart } from "../styles";
 import { Link } from "react-router-dom";
@@ -26,6 +20,7 @@ const ShopCartContainer = styled.div<IShopProps>`
   .wraper {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     height: 90%;
     overflow-y: auto;
   }
@@ -53,11 +48,10 @@ const ShopCartContainer = styled.div<IShopProps>`
 
 const Cart = (props: { position: Boolean; fn: Function }) => {
   const sneakers = useSelector(selectBasket);
-  const count = useSelector(selectCountProduct);
+  const basket = useSelector(selectBasket);
   const dispatch = useDispatch();
   const handleFuncitons = (sneaker: ISneaker) => {
     dispatch(removeSneakerBasket(sneaker));
-    dispatch(setDiscartProduct());
   };
   return (
     <ShopCartContainer position={props.position}>
@@ -81,9 +75,9 @@ const Cart = (props: { position: Boolean; fn: Function }) => {
           <p>Todavia no hay productos en el carrito</p>
         )}
       </div>
-      {count !== 0 && (
+      {basket.length !== 0 && (
         <Link className="link_button" to="/Checkout" onClick={() => props.fn()}>
-          Terminar compra
+          Ver Carrito
         </Link>
       )}
       <button className="button_close" onClick={() => props.fn()}>

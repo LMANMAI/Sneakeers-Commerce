@@ -11,6 +11,7 @@ import { selectBasket, selectTotalCart } from "../../features/sneakersSlice";
 const CartPage: React.FC = () => {
   const sneakers = useSelector(selectBasket);
   const totalCart = useSelector(selectTotalCart);
+
   return (
     <main>
       <CartPageContainer>
