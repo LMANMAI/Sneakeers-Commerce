@@ -53,6 +53,7 @@ export const LinkContainer = styled.div`
     width: 50px;
     position: absolute;
     cursor: pointer;
+    font-size: 22px;
   }
 `;
 
@@ -80,13 +81,15 @@ export const InputSearch = styled.input`
 `;
 export const CartSticky = styled.span`
   position: relative;
-  right: -15px;
+  right: -2px;
+  top: -7px;
   width: 15px;
   height: 15px;
   color: white;
   font-size: 10px;
   line-height: 15px;
-  background-color: red;
+  background-color: white;
+  color: black;
   border-radius: 50%;
   text-align: center;
 `;

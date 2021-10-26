@@ -18,8 +18,8 @@ export interface ISneakerState {
   total: number;
 }
 export interface IUser {
-  firstName: string;
-  email: string;
+  firstName: string | null;
+  email: string | null;
   id: string;
   createdAt: any;
 }

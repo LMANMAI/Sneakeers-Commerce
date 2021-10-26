@@ -33,10 +33,10 @@ const CartPage: React.FC = () => {
             ))
           )}
         </CartBoxItemsContainer>
-        {totalCart && (
+        {totalCart > 0 && (
           <CartPageShop className="total_shop">
             <span>Total: </span>
-            <p>${totalCart}</p>
+            <p>$ {totalCart}</p>
           </CartPageShop>
         )}
         <CartButton type="button" disabled>
