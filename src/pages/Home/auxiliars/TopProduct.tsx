@@ -7,18 +7,18 @@ const TopProduct: React.FC = () => {
       <BannerWrapper>
         <Banner>
           <img src={Img} alt="" />
-          <p>Brand</p>
+          <p>Nike</p>
         </Banner>
         <Banner>
           <img
             src="https://cdn.kickscrew.com/media/btn_banner_yeezy.jpg"
             alt=""
           />
-          <p>Brand</p>
+          <p>Adidas</p>
         </Banner>
         <Banner>
           <img src="https://cdn.kickscrew.com/media/btn_banner_aj.jpg" alt="" />
-          <p>Brand</p>
+          <p>Jordan</p>
         </Banner>
       </BannerWrapper>
     </BannerContainer>

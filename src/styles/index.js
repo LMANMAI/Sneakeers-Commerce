@@ -1,7 +1,6 @@
 //importo las interfaces
 import styled from "styled-components";
 import Slider from "react-slick";
-
 export const Container = styled.main`
   min-height: 100vh;
 `;
@@ -23,6 +22,7 @@ export const HeaderContainer = styled.header`
   background: white;
 `;
 export const LinkContainer = styled.div`
+  display: flex;
   width: 15%;
   button {
     border: none;
@@ -211,7 +211,7 @@ export const Price = styled.span`
 export const BannerContainer = styled.main``;
 export const BannerWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(30%, 1fr));
   gap: 15px;
   margin: 20px;
 `;
@@ -249,6 +249,15 @@ export const CartPageContainer = styled.div`
   padding: 2rem 1.225rem;
   display: flex;
   flex-direction: column;
+  .payment_section {
+    border: 1px solid #e6e6e6;
+    width: 80%;
+    margin: 0 auto;
+    padding: 1.725rem 1.125rem;
+    h3 {
+      margin: 8px;
+    }
+  }
   .total_shop {
     width: 80%;
     margin: 0 auto;
@@ -299,6 +308,10 @@ export const CartButton = styled.button`
     align-self: flex-end;
     margin: 0.725rem 1.725rem;
   }
+  &:disabled {
+    background-color: #fa6b3478;
+    cursor: not-allowed;
+  }
 `;
 export const CartPageShop = styled.div`
   padding: 44px 0 48px;
@@ -320,4 +333,13 @@ export const FooterContainer = styled.footer`
   p {
     text-align: center;
   }
+`;
+
+export const DeleteButton = styled.button`
+  margin: 15px 0px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+  color: #fa6b34;
 `;

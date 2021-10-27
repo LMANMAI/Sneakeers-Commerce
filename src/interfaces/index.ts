@@ -1,8 +1,9 @@
 export interface IShopProps {
   position: Boolean;
 }
+
 export interface ISneaker {
-  _id: String;
+  _id: string;
   name: string;
   price: number;
   relaseYear: String;

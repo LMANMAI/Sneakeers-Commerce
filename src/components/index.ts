@@ -4,3 +4,5 @@ export { default as Footer } from "./Footer";
 export { default as Cart } from "./Cart";
 export { default as Hero } from "./Hero";
 export { default as ButtonNav } from "./ButtonNav";
+
+export { default as MenuHeaderProfile } from "./MenuHeaderProfile";

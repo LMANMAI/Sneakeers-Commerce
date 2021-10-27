@@ -8,28 +8,24 @@ import {
   CartSticky,
 } from "../styles";
 import { ImCart, ImSearch } from "react-icons/im";
+import { HiMenu } from "react-icons/hi";
 import SneakerLogo from "../assets/sneakers.png";
-import { Cart } from ".";
+import { Cart, MenuHeaderProfile } from ".";
 import { useSelector, useDispatch } from "react-redux";
 import { selectBasket } from "../features/sneakersSlice";
 import { provider, auth, signInWithPopup } from "../firebase";
-import { GoogleAuthProvider } from "firebase/auth";
-import {
-  selectUser,
-  setUser,
-  setVerification,
-  setUserLogOut,
-} from "../features/userSlice";
+import { selectUser, setUser, setVerification } from "../features/userSlice";
 const Header: React.FC = () => {
-  const [position, setPosition] = useState(false);
-  const basket = useSelector(selectBasket);
+  //states
+  const [position, setPosition] = useState<boolean>(false);
+  const [menuposition, setMenuPosition] = useState<boolean>(false);
   const dispatch = useDispatch();
-
+  //partes del reducer
+  const basket = useSelector(selectBasket);
   const user = useSelector(selectUser);
+  //funciones
   const handleSingIn = () => {
     signInWithPopup(auth, provider).then((result) => {
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential?.accessToken;
       dispatch(
         setUser({
           firstName: result.user.displayName,
@@ -41,12 +37,18 @@ const Header: React.FC = () => {
       dispatch(setVerification());
     });
   };
-  const handleLogOut = () => {
-    dispatch(setUserLogOut());
-  };
+
   return (
     <HeaderContainer>
       <LinkContainer>
+        <div>
+          {user && (
+            <button onClick={() => setMenuPosition(true)}>
+              <HiMenu />
+            </button>
+          )}
+          <MenuHeaderProfile position={menuposition} fn={setMenuPosition} />
+        </div>
         <Link to="/">
           <div>
             <img src={SneakerLogo} alt="logo" />
@@ -65,21 +67,13 @@ const Header: React.FC = () => {
       </InputContainer>
       <LinkContainer>
         <div>
-          {!user ? (
+          {!user && (
             <button
               type="button"
               className="login_button"
               onClick={() => handleSingIn()}
             >
               Inicia sesion
-            </button>
-          ) : (
-            <button
-              type="button"
-              className="login_button"
-              onClick={() => handleLogOut()}
-            >
-              Cerrar Sesion
             </button>
           )}
           <div>

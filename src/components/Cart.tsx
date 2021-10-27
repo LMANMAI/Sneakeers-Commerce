@@ -5,6 +5,7 @@ import { IShopProps, ISneaker } from "../interfaces";
 import { SneakerCardCart } from "../styles";
 import { Link } from "react-router-dom";
 import { GoTrashcan } from "react-icons/go";
+import { useEffect } from "react";
 const ShopCartContainer = styled.div<IShopProps>`
   height: 100%;
   width: 65vw;
@@ -47,19 +48,19 @@ const ShopCartContainer = styled.div<IShopProps>`
 `;
 
 const Cart = (props: { position: Boolean; fn: Function }) => {
-  const sneakers = useSelector(selectBasket);
   const basket = useSelector(selectBasket);
   const dispatch = useDispatch();
   const handleFuncitons = (sneaker: ISneaker) => {
     dispatch(removeSneakerBasket(sneaker));
   };
+
   return (
     <ShopCartContainer position={props.position}>
       <div className="wraper">
-        {sneakers.length > 0 ? (
-          sneakers.map((sneaker) => (
+        {basket.length > 0 ? (
+          basket.map((sneaker) => (
             <>
-              <div className="sneaker_cart_container">
+              <div className="sneaker_cart_container" key={sneaker._id}>
                 <SneakerCardCart>
                   <img src={sneaker.imageURL} alt={sneaker.name} />
                   <p>{sneaker.name}</p>

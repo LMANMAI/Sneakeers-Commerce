@@ -12,6 +12,7 @@ import { ISneaker } from "../../../interfaces";
 const Card = (props: { sneaker: ISneaker }) => {
   const dispatch = useDispatch();
   const handleSneakerCart = (sneaker: ISneaker) => {
+    localStorage.setItem("sneaker", sneaker._id);
     dispatch(setBasket(sneaker));
   };
   return (

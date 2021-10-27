@@ -19,7 +19,7 @@ const CardContent = (): JSX.Element => {
       <h2>Lanzamientos</h2>
       <CardContainer>
         {snekaersApi.map((sneaker: ISneaker) => (
-          <Card sneaker={sneaker} />
+          <Card key={sneaker._id} sneaker={sneaker} />
         ))}
       </CardContainer>
     </CardWrapperMain>
