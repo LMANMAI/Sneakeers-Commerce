@@ -37,6 +37,7 @@ const CartPage: React.FC = () => {
   const [disabled, setDisabled] = useState(false);
   const [processing, setProcessing] = useState<boolean | string>();
   const [message, setMessage] = useState<null | string>();
+  const [success, setScucces] = useState(false);
   const [clientsecret, setClientSecret] = useState<any>();
   //functions
 
@@ -47,42 +48,38 @@ const CartPage: React.FC = () => {
     const getClientSecret = async () => {
       const response = await axios({
         method: "post",
-        url: `/payments/create?total=${totalCart * 100}`,
+        url: `/payments/create?total=${totalCart}`,
       });
       setClientSecret(response.data.clientSecret);
     };
     getClientSecret();
   }, [sneakers]);
 
+  console.log("the secret is", clientsecret);
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     setProcessing(true);
+
     if (!stripe || !elements) {
       return;
     }
     setMessage("Creating payment intent");
-    const { clientSecret } = await fetch(
-      "https://api.stripe.com/v1/payment_intents",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          PaymentMethodType: "card",
-          currency: "eur",
-        }),
-      }
-    ).then((r) => r.json());
 
     const cardElement = elements.getElement(CardElement);
     if (cardElement) {
-      setMessage("Payment intent created");
-      const { paymentIntent } = await stripe.confirmCardPayment(clientsecret, {
-        payment_method: {
-          card: cardElement,
-        },
-      });
+      const payload = await stripe
+        .confirmCardPayment(clientsecret, {
+          payment_method: {
+            card: cardElement,
+          },
+        })
+        .then(({ paymentIntent }) => {
+          setScucces(true);
+          setError(null);
+          setProcessing(false);
+          history.replace("/Checkout");
+        });
     }
   };
   const handleChange = (event: any) => {
@@ -130,20 +127,21 @@ const CartPage: React.FC = () => {
                 <form onSubmit={handleSubmit} id="payment-form">
                   {message ? <p>{message}</p> : null}
                   <CardElement onChange={handleChange} id="card-element" />
+                  <CartButton
+                    type="submit"
+                    disabled={
+                      sneakers.length === 0 || processing || disabled
+                        ? true
+                        : false
+                    }
+                  >
+                    {processing ? "Procesando" : "Comprar carrito"}
+                  </CartButton>
                 </form>
               </div>
             </div>
           </>
         )}
-
-        <CartButton
-          type="button"
-          disabled={
-            sneakers.length === 0 || processing || disabled ? true : false
-          }
-        >
-          {processing ? "Procesando" : "Comprar carrito"}
-        </CartButton>
       </CartPageContainer>
     </main>
   );
