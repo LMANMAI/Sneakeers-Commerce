@@ -3,8 +3,8 @@ import { Redirect, Route, Switch } from "react-router";
 import { LandingPage, CartPage } from "./pages";
 import "./styles/reset.css";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser, selectUser } from "./features/userSlice";
+import { useDispatch } from "react-redux";
+import { setUser } from "./features/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { IUser } from "./interfaces";
@@ -39,7 +39,7 @@ const App = (): JSX.Element => {
       return unsubscribe;
     }
     stateChanged();
-  });
+  }, []);
   dispatch(setUser(currentuser));
   return (
     <Layout>

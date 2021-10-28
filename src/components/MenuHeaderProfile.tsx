@@ -25,7 +25,7 @@ const MenuHeaderProfile = (props: { position: boolean; fn: Function }) => {
     dispatch(setUserLogOut());
     props.fn(false);
   };
-
+  if (typeof user === null) return null;
   return (
     <MenuHeaderProfile_Wrapper position={props.position}>
       <p>HI! {user?.firstName}</p>

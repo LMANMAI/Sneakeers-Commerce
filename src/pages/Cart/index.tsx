@@ -15,7 +15,12 @@ import {
   removeSneakerBasket,
 } from "../../features/sneakersSlice";
 import { ISneaker } from "../../interfaces";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import {
+  CardElement,
+  useStripe,
+  useElements,
+  Elements,
+} from "@stripe/react-stripe-js";
 import axios from "../../config/axios";
 
 const CartPage: React.FC = () => {
@@ -31,7 +36,7 @@ const CartPage: React.FC = () => {
   const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(false);
   const [processing, setProcessing] = useState<boolean | string>();
-  const [succeded, setSucceded] = useState(false);
+  const [message, setMessage] = useState<null | string>();
   const [clientsecret, setClientSecret] = useState<any>();
   //functions
 
@@ -52,16 +57,33 @@ const CartPage: React.FC = () => {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     setProcessing(true);
-    const payload = await stripe
-      ?.confirmCardPayment(clientsecret, {
-        payment_method: { card: elements?.getElement?(CardElement) },
-      })
-      .then(({ paymentIntent }) => {
-        setSucceded(true);
-        setError(null);
-        setProcessing(false);
-        history.replace("/");
+    if (!stripe || !elements) {
+      return;
+    }
+    setMessage("Creating payment intent");
+    const { clientSecret } = await fetch(
+      "https://api.stripe.com/v1/payment_intents",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          PaymentMethodType: "card",
+          currency: "eur",
+        }),
+      }
+    ).then((r) => r.json());
+
+    const cardElement = elements.getElement(CardElement);
+    if (cardElement) {
+      setMessage("Payment intent created");
+      const { paymentIntent } = await stripe.confirmCardPayment(clientsecret, {
+        payment_method: {
+          card: cardElement,
+        },
       });
+    }
   };
   const handleChange = (event: any) => {
     setDisabled(event.empty);
@@ -105,8 +127,9 @@ const CartPage: React.FC = () => {
                 <h3>Metodos de pago</h3>
               </div>
               <div className="payment_details">
-                <form onSubmit={handleSubmit}>
-                  <CardElement onChange={handleChange} />
+                <form onSubmit={handleSubmit} id="payment-form">
+                  {message ? <p>{message}</p> : null}
+                  <CardElement onChange={handleChange} id="card-element" />
                 </form>
               </div>
             </div>
@@ -116,9 +139,7 @@ const CartPage: React.FC = () => {
         <CartButton
           type="button"
           disabled={
-            sneakers.length === 0 || processing || disabled || succeded
-              ? true
-              : false
+            sneakers.length === 0 || processing || disabled ? true : false
           }
         >
           {processing ? "Procesando" : "Comprar carrito"}

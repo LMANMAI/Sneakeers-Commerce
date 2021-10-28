@@ -59,8 +59,8 @@ const Cart = (props: { position: Boolean; fn: Function }) => {
       <div className="wraper">
         {basket.length > 0 ? (
           basket.map((sneaker) => (
-            <>
-              <div className="sneaker_cart_container" key={sneaker._id}>
+            <div key={sneaker._id}>
+              <div className="sneaker_cart_container">
                 <SneakerCardCart>
                   <img src={sneaker.imageURL} alt={sneaker.name} />
                   <p>{sneaker.name}</p>
@@ -70,7 +70,7 @@ const Cart = (props: { position: Boolean; fn: Function }) => {
                 </button>
               </div>
               <hr />
-            </>
+            </div>
           ))
         ) : (
           <p>Todavia no hay productos en el carrito</p>
