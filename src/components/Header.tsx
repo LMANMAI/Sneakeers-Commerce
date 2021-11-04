@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   HeaderContainer,
@@ -14,7 +14,11 @@ import { Cart, MenuHeaderProfile } from ".";
 import { useSelector, useDispatch } from "react-redux";
 import { selectBasket } from "../features/sneakersSlice";
 import { provider, auth, signInWithPopup } from "../firebase";
-import { selectUser, setUser, setVerification } from "../features/userSlice";
+import {
+  setUser,
+  setVerification,
+  selectAuthenticated,
+} from "../features/userSlice";
 const Header: React.FC = () => {
   //states
   const [position, setPosition] = useState<boolean>(false);
@@ -22,8 +26,8 @@ const Header: React.FC = () => {
   const dispatch = useDispatch();
   //partes del reducer
   const basket = useSelector(selectBasket);
-  const user = useSelector(selectUser);
-  //funciones
+  const authenticated = useSelector(selectAuthenticated);
+
   const handleSingIn = () => {
     signInWithPopup(auth, provider).then((result) => {
       dispatch(
@@ -42,11 +46,11 @@ const Header: React.FC = () => {
     <HeaderContainer>
       <LinkContainer>
         <div>
-          {user && (
+          {authenticated ? (
             <button onClick={() => setMenuPosition(true)}>
               <HiMenu />
             </button>
-          )}
+          ) : null}
           <MenuHeaderProfile position={menuposition} fn={setMenuPosition} />
         </div>
         <Link to="/">
@@ -67,7 +71,7 @@ const Header: React.FC = () => {
       </InputContainer>
       <LinkContainer>
         <div>
-          {!user && (
+          {!authenticated ? (
             <button
               type="button"
               className="login_button"
@@ -75,7 +79,7 @@ const Header: React.FC = () => {
             >
               Inicia sesion
             </button>
-          )}
+          ) : null}
           <div>
             <ImCart
               onClick={() => setPosition(!position)}

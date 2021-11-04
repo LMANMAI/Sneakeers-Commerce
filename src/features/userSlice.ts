@@ -8,6 +8,7 @@ const initialState: IUserState = {
   error: "",
   needVerification: false,
   success: "",
+  position: false,
 };
 
 export const userSlice = createSlice({
@@ -35,6 +36,12 @@ export const userSlice = createSlice({
     setSucces: (state, action: PayloadAction<string>) => {
       state.success = action.payload;
     },
+    setMenuPosition: (state, action: PayloadAction<boolean>) => {
+      state.position = action.payload;
+      if (state.user) {
+        state.position = false;
+      }
+    },
   },
 });
 export const {
@@ -44,6 +51,7 @@ export const {
   setError,
   setVerification,
   setSucces,
+  setMenuPosition,
 } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user.user;
 export const selectLoading = (state: RootState) => state.user.loading;
@@ -51,4 +59,7 @@ export const selectError = (state: RootState) => state.user.error;
 export const selectVerification = (state: RootState) =>
   state.user.needVerification;
 export const selectSuccess = (state: RootState) => state.user.success;
+export const selectAuthenticated = (state: RootState) =>
+  state.user.authenticated;
+export const selectMenuPosition = (state: RootState) => state.user.position;
 export default userSlice.reducer;

@@ -13,14 +13,10 @@ import {
   selectBasket,
   selectTotalCart,
   removeSneakerBasket,
+  setBasketReset,
 } from "../../features/sneakersSlice";
 import { ISneaker } from "../../interfaces";
-import {
-  CardElement,
-  useStripe,
-  useElements,
-  Elements,
-} from "@stripe/react-stripe-js";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "../../config/axios";
 
 const CartPage: React.FC = () => {
@@ -48,14 +44,12 @@ const CartPage: React.FC = () => {
     const getClientSecret = async () => {
       const response = await axios({
         method: "post",
-        url: `/payments/create?total=${totalCart}`,
+        url: `/payments/create?total=${totalCart * 100}`,
       });
       setClientSecret(response.data.clientSecret);
     };
     getClientSecret();
   }, [sneakers]);
-
-  console.log("the secret is", clientsecret);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -78,7 +72,9 @@ const CartPage: React.FC = () => {
           setScucces(true);
           setError(null);
           setProcessing(false);
-          history.replace("/Checkout");
+          alert(`Pedido Confirmado por el monto de: ${totalCart}`);
+          dispatch(setBasketReset());
+          history.replace("/");
         });
     }
   };

@@ -17,6 +17,7 @@ export interface ISneakerState {
   value: number;
   sneaker_id: string;
   total: number;
+  modal: boolean;
 }
 export interface IUser {
   firstName: string | null;
@@ -31,4 +32,5 @@ export interface IUserState {
   error: string;
   needVerification: boolean;
   success: string;
+  position: boolean;
 }

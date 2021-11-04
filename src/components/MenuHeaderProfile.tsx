@@ -2,8 +2,12 @@ import styled from "styled-components";
 import { IShopProps } from "../interfaces";
 import { GrClose } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser, setUserLogOut } from "../features/userSlice";
-const MenuHeaderProfile_Wrapper = styled.nav<IShopProps>`
+import {
+  selectUser,
+  selectAuthenticated,
+  setUserLogOut,
+} from "../features/userSlice";
+const MenuHeaderProfileWrapper = styled.nav<IShopProps>`
   width: 210px;
   position: absolute;
   left: ${(props) => (props.position ? "0px" : "-70vw;")};
@@ -20,14 +24,15 @@ const MenuHeaderProfile_Wrapper = styled.nav<IShopProps>`
 `;
 const MenuHeaderProfile = (props: { position: boolean; fn: Function }) => {
   const user = useSelector(selectUser);
+  const authenticated = useSelector(selectAuthenticated);
   const dispatch = useDispatch();
   const handleLogOut = () => {
     dispatch(setUserLogOut());
     props.fn(false);
   };
-  if (typeof user === null) return null;
+  if (!authenticated) return null;
   return (
-    <MenuHeaderProfile_Wrapper position={props.position}>
+    <MenuHeaderProfileWrapper position={props.position}>
       <p>HI! {user?.firstName}</p>
       <button className="login_button" onClick={() => props.fn(false)}>
         <GrClose />
@@ -49,7 +54,7 @@ const MenuHeaderProfile = (props: { position: boolean; fn: Function }) => {
           </button>
         </li>
       </ul>
-    </MenuHeaderProfile_Wrapper>
+    </MenuHeaderProfileWrapper>
   );
 };
 

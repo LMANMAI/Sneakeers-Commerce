@@ -2,12 +2,11 @@ import { Layout } from "./components";
 import { Redirect, Route, Switch } from "react-router";
 import { LandingPage, CartPage } from "./pages";
 import "./styles/reset.css";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { setUser } from "./features/userSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser, setUser, setUserLogOut } from "./features/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
-import { IUser } from "./interfaces";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
@@ -16,31 +15,30 @@ const promise = loadStripe(
 );
 
 const App = (): JSX.Element => {
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
-  const [currentuser, setCurrentUser] = useState<IUser>({
-    firstName: "",
-    email: "",
-    id: "",
-    createdAt: "",
-  });
 
   useEffect(() => {
     async function stateChanged() {
       const unsubscribe = await onAuthStateChanged(auth, (user) => {
         if (user) {
-          setCurrentUser({
-            firstName: user.displayName,
-            email: user.email,
-            id: user.uid,
-            createdAt: user?.metadata.creationTime,
-          });
+          dispatch(
+            setUser({
+              firstName: user?.displayName,
+              email: user?.email,
+              id: user?.uid,
+              createdAt: user?.metadata.creationTime,
+            })
+          );
+        } else {
+          dispatch(setUserLogOut());
         }
       });
       return unsubscribe;
     }
     stateChanged();
-  }, []);
-  dispatch(setUser(currentuser));
+  }, [dispatch]);
+
   return (
     <Layout>
       <Switch>

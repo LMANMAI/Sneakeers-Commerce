@@ -156,6 +156,9 @@ export const CardContainer = styled.section`
   grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
   gap: 15px;
   box-sizing: border-box;
+  .sk-chase {
+    margin: 10px auto;
+  }
 `;
 export const MainCard = styled.div`
   transition: all 150ms ease-in-out;
@@ -342,4 +345,50 @@ export const DeleteButton = styled.button`
   cursor: pointer;
   background-color: transparent;
   color: #fa6b34;
+`;
+
+//MODAL
+export const ModalView = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+export const ModalContent = styled.div`
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  padding: 15px;
+  background-color: white;
+  max-height: 85vh;
+  height: fit-content;
+  overflow: auto;
+  h4 {
+    text-align: center;
+  }
+  @media (min-width: 768px) {
+    min-width: 40vw;
+    width: fit-content;
+  }
+`;
+export const ModalCloseButton = styled.div`
+  border: none;
+  background-color: transparent;
+  text-align: end;
+  width: 100%;
+  cursor: pointer;
+  svg {
+    font-size: 20px;
+    font-weight: bold;
+  }
 `;

@@ -1,11 +1,17 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { removeSneakerBasket, selectBasket } from "../features/sneakersSlice";
+import {
+  removeSneakerBasket,
+  selectBasket,
+  selectModal,
+  setModal,
+} from "../features/sneakersSlice";
 import { IShopProps, ISneaker } from "../interfaces";
 import { SneakerCardCart } from "../styles";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { GoTrashcan } from "react-icons/go";
-import { useEffect } from "react";
+import { selectAuthenticated } from "../features/userSlice";
+import { Modal } from "./";
 const ShopCartContainer = styled.div<IShopProps>`
   height: 100%;
   width: 65vw;
@@ -49,11 +55,23 @@ const ShopCartContainer = styled.div<IShopProps>`
 
 const Cart = (props: { position: Boolean; fn: Function }) => {
   const basket = useSelector(selectBasket);
+  const autenticathed = useSelector(selectAuthenticated);
+  const modalstate = useSelector(selectModal);
   const dispatch = useDispatch();
+  const history = useHistory();
   const handleFuncitons = (sneaker: ISneaker) => {
     dispatch(removeSneakerBasket(sneaker));
   };
-
+  const handleBasket = (value: boolean) => {
+    dispatch(setModal(value));
+    if (autenticathed) {
+      props.fn();
+      history.push("/Checkout");
+    }
+  };
+  const handleCloseModal = (value: boolean) => {
+    dispatch(setModal(value));
+  };
   return (
     <ShopCartContainer position={props.position}>
       <div className="wraper">
@@ -77,9 +95,18 @@ const Cart = (props: { position: Boolean; fn: Function }) => {
         )}
       </div>
       {basket.length !== 0 && (
-        <Link className="link_button" to="/Checkout" onClick={() => props.fn()}>
-          Ver Carrito
-        </Link>
+        <>
+          <button className="link_button" onClick={() => handleBasket(true)}>
+            Ver Carrito
+          </button>
+          {!autenticathed ? (
+            <Modal
+              message="Es necesario que te logees para poder terminar la compra"
+              state={modalstate}
+              fn={() => handleCloseModal(false)}
+            ></Modal>
+          ) : null}
+        </>
       )}
       <button className="button_close" onClick={() => props.fn()}>
         Cerrar
