@@ -28,7 +28,7 @@ const Hero: React.FC = () => {
         </div>
         <div>
           <img
-            src="https://www.kickscrew.com/cdn-cgi/image/fit-contain,width=5000/pub/media/slider/c/z/cz0790-801_banner_copy.jpg"
+            src="https://essential.vteximg.com.br/arquivos/ids/469125/BannerWeb-MoveToZero1600x576.png?v=637673899532070000"
             alt=""
           />
         </div>
