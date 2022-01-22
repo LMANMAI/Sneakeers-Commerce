@@ -18,13 +18,15 @@ import {
 import { ISneaker } from "../../interfaces";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "../../config/axios";
+import { selectAuthenticated, selectUser } from "../../features/userSlice";
 
 const CartPage: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const sneakers = useSelector(selectBasket);
   const totalCart = useSelector(selectTotalCart);
-
+  const user = useSelector(selectUser);
+  const autenticated = useSelector(selectAuthenticated);
   //stripe
   const stripe = useStripe();
   const elements = useElements();
@@ -82,7 +84,9 @@ const CartPage: React.FC = () => {
     setDisabled(event.empty);
     setError(event.error ? event.error.message : "");
   };
-
+  if (!user || !autenticated) {
+    history.push("/");
+  }
   return (
     <main>
       <CartPageContainer>
@@ -96,7 +100,7 @@ const CartPage: React.FC = () => {
             sneakers.map((sneaker) => (
               <CartPageShop key={sneaker._id}>
                 <ImgShopContainer>
-                  <img src={sneaker.imageURL} alt={sneaker.name} />
+                  <img src={sneaker.posterPathImage} alt={sneaker.name} />
                 </ImgShopContainer>
                 <div>
                   <p>{sneaker.name}</p>

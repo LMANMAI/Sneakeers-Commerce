@@ -6,10 +6,14 @@ export interface ISneaker {
   _id: string;
   name: string;
   price: number;
-  relaseYear: String;
-  imageURL: string;
-  brand: String;
+  relaseYear: string;
+  posterPathImage: string;
+  brand: string;
   createdAt: Date;
+  genre: string;
+  sizes: number[];
+  imgs: string[];
+  status: string;
 }
 export interface ISneakerState {
   sneakers: ISneaker[];
@@ -18,6 +22,7 @@ export interface ISneakerState {
   sneaker_id: string;
   total: number;
   modal: boolean;
+  sneakerActive: ISneaker | null;
 }
 export interface IUser {
   firstName: string | null;

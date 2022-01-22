@@ -1,17 +1,12 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  removeSneakerBasket,
-  selectBasket,
-  selectModal,
-  setModal,
-} from "../features/sneakersSlice";
+import { removeSneakerBasket, selectBasket } from "../features/sneakersSlice";
 import { IShopProps, ISneaker } from "../interfaces";
 import { SneakerCardCart } from "../styles";
 import { useHistory } from "react-router-dom";
 import { GoTrashcan } from "react-icons/go";
 import { selectAuthenticated } from "../features/userSlice";
-import { Modal } from "./";
 const ShopCartContainer = styled.div<IShopProps>`
   height: 100%;
   width: 65vw;
@@ -54,33 +49,34 @@ const ShopCartContainer = styled.div<IShopProps>`
 `;
 
 const Cart = (props: { position: Boolean; fn: Function }) => {
+  const [error, setError] = useState<string | void>();
   const basket = useSelector(selectBasket);
   const autenticathed = useSelector(selectAuthenticated);
-  const modalstate = useSelector(selectModal);
   const dispatch = useDispatch();
   const history = useHistory();
   const handleFuncitons = (sneaker: ISneaker) => {
     dispatch(removeSneakerBasket(sneaker));
   };
-  const handleBasket = (value: boolean) => {
-    dispatch(setModal(value));
+  const handleBasket = () => {
     if (autenticathed) {
       props.fn();
       history.push("/Checkout");
+      setError();
+    } else {
+      setError("Tienes que estar logeado para completar la compra.");
     }
   };
-  const handleCloseModal = (value: boolean) => {
-    dispatch(setModal(value));
-  };
+
   return (
     <ShopCartContainer position={props.position}>
+      {error ? <p>{error}</p> : null}
       <div className="wraper">
         {basket.length > 0 ? (
           basket.map((sneaker) => (
             <div key={sneaker._id}>
               <div className="sneaker_cart_container">
                 <SneakerCardCart>
-                  <img src={sneaker.imageURL} alt={sneaker.name} />
+                  <img src={sneaker.posterPathImage} alt={sneaker.name} />
                   <p>{sneaker.name}</p>
                 </SneakerCardCart>
                 <button onClick={() => handleFuncitons(sneaker)}>
@@ -96,16 +92,9 @@ const Cart = (props: { position: Boolean; fn: Function }) => {
       </div>
       {basket.length !== 0 && (
         <>
-          <button className="link_button" onClick={() => handleBasket(true)}>
+          <button className="link_button" onClick={() => handleBasket()}>
             Ver Carrito
           </button>
-          {!autenticathed ? (
-            <Modal
-              message="Es necesario que te logees para poder terminar la compra"
-              state={modalstate}
-              fn={() => handleCloseModal(false)}
-            ></Modal>
-          ) : null}
         </>
       )}
       <button className="button_close" onClick={() => props.fn()}>

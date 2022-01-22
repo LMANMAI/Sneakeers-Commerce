@@ -126,20 +126,24 @@ export const MenuNavContainer = styled.div`
 `;
 export const NavMenu = styled.nav`
   ul {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
+    display: flex;
+    justify-content: space-between;
   }
 `;
 export const MenuItem = styled.li`
+  width: 30%;
+  flex: 1;
+  margin: 0px 10px;
   border: 1px solid;
   padding: 13px;
   border-radius: 15px;
   text-align: center;
   transition: all 350ms ease-in-out;
+  font-size: 1.125rem;
   &:hover {
     cursor: pointer;
     background-color: #ccc;
+    border: none;
   }
 `;
 //Card Section
@@ -152,17 +156,22 @@ export const CardWrapperMain = styled.main`
   }
 `;
 export const CardContainer = styled.section`
+  //border: 1px solid red;
+  width: 90vw;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
   gap: 15px;
   box-sizing: border-box;
   .sk-chase {
     margin: 10px auto;
   }
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(15%, 1fr));
+  }
 `;
 export const MainCard = styled.div`
   transition: all 150ms ease-in-out;
-
+  text-align: center;
   .button_container {
     width: 100%;
     display: flex;
@@ -353,35 +362,42 @@ export const ModalView = styled.div`
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(2px);
-  position: fixed;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: 9999;
   overflow-y: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  position: fixed;
 `;
 export const ModalContent = styled.div`
-  width: fit-content;
+  width: 90%;
+  height: 85vh;
   display: flex;
   flex-direction: column;
   border-radius: 15px;
   padding: 15px;
   background-color: white;
-  max-height: 85vh;
-  height: fit-content;
-  overflow: auto;
+  overflow-y: auto;
   h4 {
     text-align: center;
   }
+  ${MainCard} {
+    width: 100%;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
   @media (min-width: 768px) {
     min-width: 40vw;
-    width: fit-content;
+    width: 90%;
+    ${MainCard} {
+      width: 25%;
+    }
   }
 `;
 export const ModalCloseButton = styled.div`
+  position: relative;
+  top: 5%;
   border: none;
   background-color: transparent;
   text-align: end;
@@ -390,5 +406,54 @@ export const ModalCloseButton = styled.div`
   svg {
     font-size: 20px;
     font-weight: bold;
+  }
+`;
+export const ModalCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;}
+ padding-top: 4rem;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+`;
+export const ModalCardCarrousel = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: auto;
+  flex-direction: row;
+  img {
+    width: 90%;
+    max-width: 40vw;
+    border-radius: 15px;
+    &:hover {
+      border: 1px solid;
+      cursor: pointer;
+    }
+  }
+  @media (min-width: 768px) {
+    min-width: 100px;
+    max-width: 10vw;
+    flex-direction: column;
+  }
+`;
+
+export const RightSide = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  select {
+    padding: 9px;
+    outline: none;
+    border: 1px solid #ccc;
+  }
+  .basket_button {
+    padding: 10px;
+    border: none;
+    outline: none;
+    background-color: #fa6b34;
+    color: white;
+    cursor: pointer;
   }
 `;

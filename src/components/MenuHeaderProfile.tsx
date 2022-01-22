@@ -30,13 +30,14 @@ const MenuHeaderProfile = (props: { position: boolean; fn: Function }) => {
     dispatch(setUserLogOut());
     props.fn(false);
   };
-  if (!authenticated) return null;
+  if (!authenticated && !user) return null;
   return (
     <MenuHeaderProfileWrapper position={props.position}>
-      <p>HI! {user?.firstName}</p>
       <button className="login_button" onClick={() => props.fn(false)}>
         <GrClose />
       </button>
+      <p>Hola! {user?.firstName}</p>
+
       <ul>
         <li>
           <button className="login_button"> Mis favoritos</button>

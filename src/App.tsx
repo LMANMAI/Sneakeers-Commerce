@@ -3,8 +3,8 @@ import { Redirect, Route, Switch } from "react-router";
 import { LandingPage, CartPage } from "./pages";
 import "./styles/reset.css";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser, setUser, setUserLogOut } from "./features/userSlice";
+import { useDispatch } from "react-redux";
+import { setUser } from "./features/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { loadStripe } from "@stripe/stripe-js";
@@ -15,7 +15,6 @@ const promise = loadStripe(
 );
 
 const App = (): JSX.Element => {
-  const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,8 +29,6 @@ const App = (): JSX.Element => {
               createdAt: user?.metadata.creationTime,
             })
           );
-        } else {
-          dispatch(setUserLogOut());
         }
       });
       return unsubscribe;
@@ -43,7 +40,7 @@ const App = (): JSX.Element => {
     <Layout>
       <Switch>
         <Route exact path="/" component={LandingPage} />
-        <Route path="/Checkout">
+        <Route exact path="/Checkout">
           <Elements stripe={promise}>
             <CartPage />
           </Elements>

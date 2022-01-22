@@ -1,33 +1,62 @@
-import { useEffect, useState } from "react";
 import { Card } from "./";
-import { CardWrapperMain, CardContainer } from "../../../styles";
-import { ISneaker } from "../../../interfaces";
+import {
+  CardWrapperMain,
+  CardContainer,
+  ModalCardCarrousel,
+  ModalCard,
+  RightSide,
+} from "../../../styles";
 import { Spinner } from "../../../components";
-const CardContent = (): JSX.Element => {
-  const [snekaersApi, setSneakersApi] = useState<ISneaker[]>([]);
-  useEffect(() => {
-    const requestApi = async () => {
-      const res = await fetch("https://sneakersapinest.herokuapp.com/sneaker");
-      const resJson = await res.json();
-      setSneakersApi(resJson.sneakers);
-    };
-    setTimeout(() => {
-      requestApi();
-    }, 1500);
-  }, []);
-
+import { ISneaker } from "../../../interfaces";
+import { Modal } from "../../../components";
+import {
+  selectSneakerActive,
+  selectModal,
+} from "../../../features/sneakersSlice";
+import { useSelector } from "react-redux";
+const CardContent = (props: {
+  snekaersApi: ISneaker[];
+  tittle: String;
+}): JSX.Element => {
+  const sneakerActive = useSelector(selectSneakerActive);
+  const modalstate = useSelector(selectModal);
   return (
     <CardWrapperMain>
-      <h2>Lanzamientos</h2>
-
+      <h2>{props.tittle}</h2>
       <CardContainer>
-        {snekaersApi.length !== 0 ? (
-          snekaersApi.map((sneaker: ISneaker) => (
+        {props.snekaersApi.length !== 0 ? (
+          props.snekaersApi.map((sneaker: ISneaker) => (
             <Card key={sneaker._id} sneaker={sneaker} />
           ))
         ) : (
           <Spinner />
         )}
+        {modalstate ? (
+          <Modal>
+            <ModalCard>
+              <ModalCardCarrousel>
+                {sneakerActive &&
+                  sneakerActive.imgs.map((sneaker) => (
+                    <img src={sneaker} alt="img" loading="lazy" />
+                  ))}
+              </ModalCardCarrousel>
+              <Card sneaker={sneakerActive} />
+              <RightSide>
+                <h3>{sneakerActive?.name}</h3>
+                <p>{sneakerActive?.brand}</p>
+                <select name="" id="">
+                  <option value="">Genero: {sneakerActive?.genre}</option>
+                </select>
+                <select name="" id="">
+                  {sneakerActive?.sizes.map((size) => (
+                    <option value="size">Talle: {size}us</option>
+                  ))}
+                </select>
+                <button className="basket_button">Agreagar al carrito</button>
+              </RightSide>
+            </ModalCard>
+          </Modal>
+        ) : null}
       </CardContainer>
     </CardWrapperMain>
   );
