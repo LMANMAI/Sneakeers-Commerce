@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Card } from "./";
 import {
   CardWrapperMain,
@@ -6,7 +7,6 @@ import {
   ModalCard,
   RightSide,
 } from "../../../styles";
-import { Spinner } from "../../../components";
 import { ISneaker } from "../../../interfaces";
 import { Modal } from "../../../components";
 import {
@@ -20,43 +20,56 @@ const CardContent = (props: {
 }): JSX.Element => {
   const sneakerActive = useSelector(selectSneakerActive);
   const modalstate = useSelector(selectModal);
+  //state de la img
+  const [imgCarrousel, setImgCarrousel] = useState(
+    sneakerActive?.posterPathImage
+  );
+  useEffect(() => {
+    setImgCarrousel(sneakerActive?.posterPathImage);
+  }, [sneakerActive]);
   return (
     <CardWrapperMain>
       <h2>{props.tittle}</h2>
       <CardContainer>
-        {props.snekaersApi.length !== 0 ? (
-          props.snekaersApi.map((sneaker: ISneaker) => (
-            <Card key={sneaker._id} sneaker={sneaker} />
-          ))
-        ) : (
-          <Spinner />
-        )}
-        {modalstate ? (
+        {props.snekaersApi.map((sneaker: ISneaker) => (
+          <Card key={sneaker._id} sneaker={sneaker} />
+        ))}
+        {modalstate && (
           <Modal>
             <ModalCard>
               <ModalCardCarrousel>
                 {sneakerActive &&
-                  sneakerActive.imgs.map((sneaker) => (
-                    <img src={sneaker} alt="img" loading="lazy" />
+                  sneakerActive.imgs.map((sneaker, index) => (
+                    <img
+                      key={`img_${index}`}
+                      src={sneaker}
+                      alt={`img_${index}`}
+                      loading="lazy"
+                      onClick={() => setImgCarrousel(sneaker)}
+                    />
                   ))}
               </ModalCardCarrousel>
-              <Card sneaker={sneakerActive} />
+              <div className="front_image">
+                <img src={imgCarrousel} alt="imagen_carrousel" loading="lazy" />
+              </div>
               <RightSide>
                 <h3>{sneakerActive?.name}</h3>
                 <p>{sneakerActive?.brand}</p>
-                <select name="" id="">
-                  <option value="">Genero: {sneakerActive?.genre}</option>
+                <select name="genero" id="genero">
+                  <option value={sneakerActive?.genre}>
+                    Genero: {sneakerActive?.genre}
+                  </option>
                 </select>
-                <select name="" id="">
+                <select name="talles" id="talles">
                   {sneakerActive?.sizes.map((size) => (
-                    <option value="size">Talle: {size}us</option>
+                    <option value={size}>Talle: {size}us</option>
                   ))}
                 </select>
                 <button className="basket_button">Agreagar al carrito</button>
               </RightSide>
             </ModalCard>
           </Modal>
-        ) : null}
+        )}
       </CardContainer>
     </CardWrapperMain>
   );

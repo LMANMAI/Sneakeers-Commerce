@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { Hero, ButtonNav } from "../../components";
-import { CardContent, TopProduct, MenuBrandsFilter } from "./auxiliars";
+import { TopProduct, MenuBrandsFilter } from "./auxiliars";
 import { ISneaker } from "../../interfaces";
 
 import { LandingContainer } from "../../styles";
+const CardContentComponent = React.lazy(
+  () => import("./auxiliars/CardContent")
+);
 const LandingPage: React.FC = () => {
   const [snekaersApi, setSneakersApi] = useState<ISneaker[]>([]);
   useEffect(() => {
@@ -21,9 +24,16 @@ const LandingPage: React.FC = () => {
     <LandingContainer>
       <Hero />
       <ButtonNav />
-      <CardContent tittle="Ultimos lanzamientos" snekaersApi={snekaersApi} />
+      <Suspense fallback={<div>cargando...</div>}>
+        <CardContentComponent
+          tittle="Ultimos lanzamientos"
+          snekaersApi={snekaersApi}
+        />
+      </Suspense>
       <TopProduct />
-      <CardContent tittle="Más vendidos" snekaersApi={snekaersApi} />
+      <Suspense fallback={<div>cargando...</div>}>
+        <CardContentComponent tittle="Más vendidos" snekaersApi={snekaersApi} />
+      </Suspense>
       <MenuBrandsFilter />
     </LandingContainer>
   );

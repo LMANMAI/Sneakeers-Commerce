@@ -15,6 +15,19 @@ export interface ISneaker {
   imgs: string[];
   status: string;
 }
+export interface ISneakerBasket {
+  _id: string;
+  name: string;
+  price: number;
+  relaseYear: string;
+  posterPathImage: string;
+  brand: string;
+  createdAt: Date;
+  genre: string;
+  sizes: number;
+  imgs: string[];
+  status: string;
+}
 export interface ISneakerState {
   sneakers: ISneaker[];
   basket: ISneaker[];

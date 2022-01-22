@@ -31,11 +31,9 @@ const CartPage: React.FC = () => {
   const stripe = useStripe();
   const elements = useElements();
   //states
-  const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(false);
   const [processing, setProcessing] = useState<boolean | string>();
   const [message, setMessage] = useState<null | string>();
-  const [success, setScucces] = useState(false);
   const [clientsecret, setClientSecret] = useState<any>();
   //functions
 
@@ -71,8 +69,6 @@ const CartPage: React.FC = () => {
           },
         })
         .then(({ paymentIntent }) => {
-          setScucces(true);
-          setError(null);
           setProcessing(false);
           alert(`Pedido Confirmado por el monto de: ${totalCart}`);
           dispatch(setBasketReset());
@@ -82,7 +78,7 @@ const CartPage: React.FC = () => {
   };
   const handleChange = (event: any) => {
     setDisabled(event.empty);
-    setError(event.error ? event.error.message : "");
+    //setError(event.error ? event.error.message : "");
   };
   if (!user || !autenticated) {
     history.push("/");

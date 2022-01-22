@@ -3,7 +3,11 @@ import { useSpring, animated } from "react-spring";
 import { ModalView, ModalContent, ModalCloseButton } from "../styles";
 import { GrClose } from "react-icons/gr";
 import { useSelector, useDispatch } from "react-redux";
-import { selectModal, setModal } from "../features/sneakersSlice";
+import {
+  selectModal,
+  setModal,
+  setSneakerActive,
+} from "../features/sneakersSlice";
 const Modal = (props: { children: any }) => {
   const { children } = props;
   const modalstate = useSelector(selectModal);
@@ -33,8 +37,8 @@ const Modal = (props: { children: any }) => {
     document.addEventListener("keydown", keyPress);
     return () => document.removeEventListener("keydown", keyPress);
   }, [keyPress]);
-  const modalRef = React.useRef<HTMLDivElement>(null);
 
+  const modalRef = React.useRef<HTMLDivElement>(null);
   return (
     <ModalView ref={modalRef}>
       <animated.div style={animation}>

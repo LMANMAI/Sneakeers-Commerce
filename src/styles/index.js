@@ -367,6 +367,9 @@ export const ModalView = styled.div`
   z-index: 9999;
   overflow-y: hidden;
   position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 export const ModalContent = styled.div`
   width: 90%;
@@ -413,8 +416,25 @@ export const ModalCard = styled.div`
   flex-direction: column;
   justify-content: space-evenly;}
  padding-top: 4rem;
+ .front_image{
+   width: 100%;
+   max-width: 350px;
+   margin: 1rem 0px;
+   height: 350px;
+   align-self: center;
+   img{
+     width: 100%;
+     max-width: 350px;
+   }
+ }
   @media (min-width: 768px) {
     flex-direction: row;
+    .front_image{
+      width: 50%;
+      margin: 0px 2rem;
+        
+   }
+ }
   }
 `;
 export const ModalCardCarrousel = styled.div`
@@ -423,12 +443,12 @@ export const ModalCardCarrousel = styled.div`
   display: flex;
   overflow: auto;
   flex-direction: row;
+
   img {
     width: 90%;
     max-width: 40vw;
     border-radius: 15px;
     &:hover {
-      border: 1px solid;
       cursor: pointer;
     }
   }
@@ -442,6 +462,7 @@ export const ModalCardCarrousel = styled.div`
 export const RightSide = styled.div`
   display: flex;
   flex-direction: column;
+  align-self: center;
   gap: 10px;
   select {
     padding: 9px;
@@ -455,5 +476,11 @@ export const RightSide = styled.div`
     background-color: #fa6b34;
     color: white;
     cursor: pointer;
+  }
+  @media (min-width: 768px) {
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    height: 100%;
+    padding: 3rem 10px;
   }
 `;
