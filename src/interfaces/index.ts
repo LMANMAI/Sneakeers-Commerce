@@ -24,7 +24,7 @@ export interface ISneakerBasket {
   brand: string;
   createdAt: Date;
   genre: string;
-  sizes: number;
+  size: number;
   imgs: string[];
   status: string;
 }

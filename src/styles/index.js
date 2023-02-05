@@ -110,8 +110,6 @@ export const Carrousel = styled(Slider)`
   & > button {
     opacity: 0;
     height: 100%;
-    width: 5vw;
-    z-index: 1;
   }
   &:hover {
     opacity: 1;
@@ -127,23 +125,25 @@ export const MenuNavContainer = styled.div`
 export const NavMenu = styled.nav`
   ul {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
   }
 `;
 export const MenuItem = styled.li`
-  width: 30%;
+  width: fit-content;
+  max-width: 10.5vw;
   flex: 1;
   margin: 0px 10px;
   border: 1px solid;
-  padding: 13px;
+  padding: 5px;
   border-radius: 15px;
   text-align: center;
   transition: all 350ms ease-in-out;
-  font-size: 1.125rem;
+  font-size: 0.825rem;
   &:hover {
     cursor: pointer;
     background-color: #ccc;
     border: none;
+    color: white;
   }
 `;
 //Card Section
@@ -156,7 +156,6 @@ export const CardWrapperMain = styled.main`
   }
 `;
 export const CardContainer = styled.section`
-  //border: 1px solid red;
   width: 90vw;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
@@ -376,10 +375,30 @@ export const ModalContent = styled.div`
   height: 85vh;
   display: flex;
   flex-direction: column;
-  border-radius: 15px;
-  padding: 15px;
+  padding: 25px;
   background-color: white;
   overflow-y: auto;
+  div {
+    overflow-y: auto;
+    padding: 15px;
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+    }
+    &::-webkit-scrollbar:vertical {
+      width: 10px;
+    }
+    &::-webkit-scrollbar:horizontal {
+      height: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #fa6b34;
+      border-radius: 20px;
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 10px;
+    }
+  }
+
   h4 {
     text-align: center;
   }
@@ -399,12 +418,13 @@ export const ModalContent = styled.div`
   }
 `;
 export const ModalCloseButton = styled.div`
-  position: relative;
-  top: 5%;
+  //position: relative;
+  //top: 5%;
   border: none;
   background-color: transparent;
   text-align: end;
   width: 100%;
+  color: white;
   cursor: pointer;
   svg {
     font-size: 20px;
@@ -415,7 +435,6 @@ export const ModalCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;}
- padding-top: 4rem;
  .front_image{
    width: 100%;
    max-width: 350px;
@@ -438,12 +457,11 @@ export const ModalCard = styled.div`
   }
 `;
 export const ModalCardCarrousel = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   display: flex;
   overflow: auto;
   flex-direction: row;
-
   img {
     width: 90%;
     max-width: 40vw;
@@ -476,11 +494,80 @@ export const RightSide = styled.div`
     background-color: #fa6b34;
     color: white;
     cursor: pointer;
+    border-radius: 10px;
   }
   @media (min-width: 768px) {
     border-radius: 15px;
     border: 1px solid #ccc;
     height: 100%;
     padding: 3rem 10px;
+  }
+`;
+
+export const MenuBrandsContainer = styled.div`
+  width: 90vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
+  gap: 15px;
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
+  }
+`;
+export const BrandContainer = styled.div`
+  min-height: 150px;
+  overflow: hidden;
+  position: relative;
+  img {
+    width: 100%;
+    object-fit: cover;
+    transition: all 450ms ease-in-out;
+    z-index: -1;
+  }
+
+  display: flex;
+  div {
+    width: 100%;
+    align-self: center;
+    justify-self: center;
+    z-index: 3;
+    position: absolute;
+    p {
+      color: white;
+      text-align: center;
+      margin: 0 auto;
+      text-shadow: 1px 1px black;
+    }
+    div {
+      text-decoration: none;
+      background-color: white;
+      padding: 12px;
+      color: #616161;
+      position: absolute;
+      width: fit-content;
+      height: fit-content;
+      top: 20%;
+      right: 5%;
+      left: 5%;
+      bottom: 18%;
+      transition: all 350ms ease-in-out;
+      transform: translateY(150px);
+    }
+    @media (min-width: 768px) {
+      div {
+        top: 20%;
+        right: 25%;
+        left: 25%;
+        bottom: 18%;
+      }
+    }
+  }
+  &:hover {
+    cursor: pointer;
+    img {
+      transform: scale(1.125);
+    }
+    .link {
+      transform: translateY(-10px);
+    }
   }
 `;

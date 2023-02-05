@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { MenuBrandsContainer, BrandContainer } from "../../../styles";
 const Brands = [
   {
     name: "adidas",
@@ -34,73 +34,6 @@ const Brands = [
   },
 ];
 
-const MenuBrandsContainer = styled.div`
-  padding: 1.125rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(45%, 1fr));
-  gap: 15px;
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(auto-fit, minmax(20%, 1fr));
-  }
-`;
-const BrandContainer = styled.div`
-  min-height: 150px;
-  overflow: hidden;
-  position: relative;
-  img {
-    width: 100%;
-    object-fit: cover;
-    transition: all 450ms ease-in-out;
-    z-index: -1;
-  }
-
-  display: flex;
-  div {
-    width: 100%;
-    align-self: center;
-    justify-self: center;
-    z-index: 3;
-    position: absolute;
-    p {
-      color: white;
-      text-align: center;
-      margin: 0 auto;
-      text-shadow: 1px 1px black;
-    }
-    a {
-      text-decoration: none;
-      background-color: white;
-      padding: 12px;
-      color: #616161;
-      position: absolute;
-      width: fit-content;
-      height: fit-content;
-      top: 20%;
-      right: 5%;
-      left: 5%;
-      bottom: 18%;
-      transition: all 350ms ease-in-out;
-      transform: translateY(150px);
-    }
-    @media (min-width: 768px) {
-      a {
-        top: 20%;
-        right: 25%;
-        left: 25%;
-        bottom: 18%;
-      }
-    }
-  }
-  &:hover {
-    cursor: pointer;
-    img {
-      transform: scale(1.125);
-    }
-    .link {
-      transform: translateY(-10px);
-    }
-  }
-`;
 const MenuBrandsFilter = () => {
   return (
     <MenuBrandsContainer>
@@ -109,9 +42,7 @@ const MenuBrandsFilter = () => {
           <img src={brand.img} alt={brand.name} />
           <div>
             <p>{brand.name}</p>
-            <a className="link" href="!#">
-              Comprar ahora
-            </a>
+            <div className="link">Comprar ahora</div>
           </div>
         </BrandContainer>
       ))}

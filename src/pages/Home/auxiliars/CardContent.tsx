@@ -7,7 +7,7 @@ import {
   ModalCard,
   RightSide,
 } from "../../../styles";
-import { ISneaker } from "../../../interfaces";
+import { ISneaker, ISneakerBasket } from "../../../interfaces";
 import { Modal } from "../../../components";
 import {
   selectSneakerActive,
@@ -20,13 +20,29 @@ const CardContent = (props: {
 }): JSX.Element => {
   const sneakerActive = useSelector(selectSneakerActive);
   const modalstate = useSelector(selectModal);
-  //state de la img
+  //states
   const [imgCarrousel, setImgCarrousel] = useState(
     sneakerActive?.posterPathImage
   );
+  const [sneakerbasket, setSneakerBasket] = useState<any>();
+  const [size, setSize] = useState<number>(0);
   useEffect(() => {
     setImgCarrousel(sneakerActive?.posterPathImage);
   }, [sneakerActive]);
+
+  const handleAddBasket = (sneakerB: any) => {
+    setSneakerBasket({ sneakerB });
+    console.log(sneakerbasket);
+  };
+  const handleChange = (e: any) => {
+    setSize(e.target.value);
+    if (typeof size !== undefined) {
+      setSneakerBasket({
+        ...sneakerbasket,
+        [sneakerbasket.sneakerB.sizes]: e.target.value,
+      });
+    }
+  };
   return (
     <CardWrapperMain>
       <h2>{props.tittle}</h2>
@@ -60,12 +76,21 @@ const CardContent = (props: {
                     Genero: {sneakerActive?.genre}
                   </option>
                 </select>
-                <select name="talles" id="talles">
+                <select
+                  name="talles"
+                  id="talles"
+                  onChange={(e) => handleChange(e)}
+                >
                   {sneakerActive?.sizes.map((size) => (
                     <option value={size}>Talle: {size}us</option>
                   ))}
                 </select>
-                <button className="basket_button">Agreagar al carrito</button>
+                <button
+                  className="basket_button"
+                  onClick={() => handleAddBasket(sneakerActive)}
+                >
+                  Agreagar al carrito
+                </button>
               </RightSide>
             </ModalCard>
           </Modal>

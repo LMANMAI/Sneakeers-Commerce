@@ -11,7 +11,9 @@ const LandingPage: React.FC = () => {
   const [snekaersApi, setSneakersApi] = useState<ISneaker[]>([]);
   useEffect(() => {
     const requestApi = async () => {
-      const res = await fetch("https://sneakersapinest.herokuapp.com/sneaker");
+      const res = await fetch(
+        "https://sneakeers-iils9fyd1-lmanmai.vercel.app/sneaker"
+      );
       const resJson = await res.json();
       setSneakersApi(resJson.sneakers);
     };
@@ -23,6 +25,7 @@ const LandingPage: React.FC = () => {
   return (
     <LandingContainer>
       <Hero />
+      <MenuBrandsFilter />
       <ButtonNav />
       <Suspense fallback={<div>cargando...</div>}>
         <CardContentComponent
@@ -30,11 +33,9 @@ const LandingPage: React.FC = () => {
           snekaersApi={snekaersApi}
         />
       </Suspense>
-      <TopProduct />
       <Suspense fallback={<div>cargando...</div>}>
         <CardContentComponent tittle="Más vendidos" snekaersApi={snekaersApi} />
       </Suspense>
-      <MenuBrandsFilter />
     </LandingContainer>
   );
 };
